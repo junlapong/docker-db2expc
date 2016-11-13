@@ -18,6 +18,12 @@ Please switch to the default db2 instance user db2inst1 to start DB2 instance an
 $ su - db2inst1
 $ db2start
 $ db2sampl
+
+### commit to new image ###
+docker ps -a
+docker commit CONTAINER_ID db2express-c:sampledb
+docker run -it -p 50000:50000 db2express-c:sampledb bash
+docker run -d -p 50000:50000 db2express-c:sampledb db2start
 ```
 The time of creating a sample database depends on your system performance, which may take several minutes.
 You can create another database using db2 create db <dbname> command.
@@ -26,7 +32,7 @@ You can create another database using db2 create db <dbname> command.
 1) Start as a daemon
 You can start a container as a daemon with DB2 services up/running :
 ```
-docker run -d -p 50000:50000 -e DB2INST1_PASSWORD=db2inst1-pwd -e LICENSE=accept  ibmcom/db2express-c:latest db2start
+docker run -d -p 50000:50000 -e DB2INST1_PASSWORD=db2inst1-pwd -e LICENSE=accept ibmcom/db2express-c:latest db2start
 ```
 db2start, db2 services start automatically and remote client can connect to it at port 50000
 
